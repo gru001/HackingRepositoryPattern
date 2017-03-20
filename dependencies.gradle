@@ -1,0 +1,21 @@
+ext {
+    supportLibraryVersion = '25.1.0'
+    retrofitVersion = '2.1.0'
+    espressoVersion = '2.2.2'
+    dependencies = [
+            rxandroid          : 'io.reactivex:rxandroid:1.2.1',
+            rxjava             : 'io.reactivex:rxjava:1.1.6',
+            retrofit           : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitGson       : 'com.squareup.retrofit2:converter-gson:2.0.2',
+            rxjavaAdapter      : 'com.squareup.retrofit2:adapter-rxjava:2.0.2',
+            okhttp             : 'com.squareup.okhttp3:okhttp:3.3.1',
+            loggingInterceptor : 'com.squareup.okhttp3:logging-interceptor:3.3.1',
+            appCompat          : "com.android.support:appcompat-v7:$supportLibraryVersion",
+            design             : "com.android.support:design:$supportLibraryVersion",
+            recyclerView       : "com.android.support:recyclerview-v7:$supportLibraryVersion",
+            jUnit              : 'junit:junit:4.12',
+            butterKnife        : 'com.jakewharton:butterknife:8.4.0',
+            butterKnifeCompiler: 'com.jakewharton:butterknife-compiler:8.4.0',
+            espressoCore       : "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    ]
+}
