@@ -16,6 +16,7 @@ ext {
             jUnit              : 'junit:junit:4.12',
             butterKnife        : 'com.jakewharton:butterknife:8.4.0',
             butterKnifeCompiler: 'com.jakewharton:butterknife-compiler:8.4.0',
-            espressoCore       : "com.android.support.test.espresso:espresso-core:$espressoVersion"
+            espressoCore       : "com.android.support.test.espresso:espresso-core:$espressoVersion",
+            espressIntents     : "com.android.support.test.espresso:espresso-intents:$espressoVersion"
     ]
 }
