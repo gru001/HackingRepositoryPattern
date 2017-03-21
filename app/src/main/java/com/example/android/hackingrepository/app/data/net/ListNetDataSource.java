@@ -25,4 +25,14 @@ public class ListNetDataSource implements ListDataSource {
         final Observable<List<UserModel>> observable = RetroFitFactory.get().create(UserEndPoint.class).getUsers();
         return observable.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
     }
+
+    @Override
+    public void saveUsers(List<UserModel> users) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
 }

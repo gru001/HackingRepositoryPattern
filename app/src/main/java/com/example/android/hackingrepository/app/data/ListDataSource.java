@@ -16,4 +16,6 @@ import rx.Observable;
 
 public interface ListDataSource {
     Observable<List<UserModel>> getUsers();
+    void saveUsers(List<UserModel> users);
+    void deleteAll();
 }

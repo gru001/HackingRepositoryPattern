@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.android.hackingrepository.api.user.UserModel;
 import com.example.android.hackingrepository.app.data.ListRepository;
+import com.example.android.hackingrepository.app.data.local.ListLocalDataSource;
 import com.example.android.hackingrepository.app.data.net.ListNetDataSource;
 import com.example.android.hackingrepository.app.utils.DividerItemDecoration;
 
@@ -30,7 +31,7 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
         setContentView(R.layout.activity_list);
         ButterKnife.bind(this);
 
-        new ListPresenter(ListRepository.getInstance(new ListNetDataSource()),this);
+        new ListPresenter(ListRepository.getInstance(new ListNetDataSource(), new ListLocalDataSource()),this);
 
         // initialize view
         mListAdapter = new UsersListAdapter(this);
@@ -38,7 +39,11 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
         rvUsers.addItemDecoration(new DividerItemDecoration(this));
         rvUsers.setHasFixedSize(true);
         rvUsers.setLayoutManager(new LinearLayoutManager(this));
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         mPresenter.loadUsers();
     }
 
@@ -70,5 +75,11 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
     @Override
     public void onItemClick(int pos) {
         Toast.makeText(this,"Item Click",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
     }
 }

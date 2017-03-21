@@ -5,4 +5,5 @@ package com.example.android.hackingrepository.app;
  */
 
 public interface BasePresenter {
+    void onDestroy();
 }

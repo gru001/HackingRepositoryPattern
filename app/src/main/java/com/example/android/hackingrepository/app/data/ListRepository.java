@@ -1,6 +1,7 @@
 package com.example.android.hackingrepository.app.data;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.android.hackingrepository.api.user.UserModel;
 
@@ -19,22 +20,52 @@ import rx.Observable;
 public class ListRepository implements ListDataSource{
     private static ListRepository sInstance;
     @NonNull private final ListDataSource mNetDataSource;
+    @NonNull private final ListDataSource mLocalDataSource;
+    private boolean isCached = false;
 
-    public ListRepository(@NonNull ListDataSource netDataSource) {
+    public static final String TAG = ListRepository.class.getSimpleName();
+
+    public ListRepository(@NonNull ListDataSource netDataSource, @NonNull ListDataSource localDataSource) {
         mNetDataSource = netDataSource;
+        mLocalDataSource = localDataSource;
     }
 
-    public static ListRepository getInstance(ListDataSource netDataSource){
+    public boolean isCached() {
+        return isCached;
+    }
+
+    public void setCached(boolean cached) {
+        isCached = cached;
+    }
+
+    public static ListRepository getInstance(ListDataSource netDataSource, ListDataSource localDataSource){
         if(sInstance == null){
-            sInstance = new ListRepository(netDataSource);
+            sInstance = new ListRepository(netDataSource, localDataSource);
         }
 
         return sInstance;
+
     }
 
 
     @Override
     public Observable<List<UserModel>> getUsers() {
-        return mNetDataSource.getUsers();
+        if(!isCached()){
+            Log.i(TAG, "getUsers: from net");
+            return mNetDataSource.getUsers();
+        }
+
+        Log.i(TAG, "getUsers: from local");
+        return mLocalDataSource.getUsers();
+    }
+
+    @Override
+    public void saveUsers(List<UserModel> users) {
+        mLocalDataSource.saveUsers(users);
+    }
+
+    @Override
+    public void deleteAll() {
+        mLocalDataSource.deleteAll();
     }
 }

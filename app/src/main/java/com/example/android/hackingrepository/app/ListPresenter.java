@@ -41,8 +41,18 @@ public class ListPresenter implements ListContract.UserActionListener{
 
             @Override
             public void onNext(List<UserModel> userModels) {
+                if(!mListRepository.isCached()){
+                    mListRepository.saveUsers(userModels);
+                    mListRepository.setCached(true);
+                }
                 mView.showUsers(userModels);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        mListRepository.setCached(false);
+        mListRepository.deleteAll();
     }
 }
